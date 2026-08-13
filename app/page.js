@@ -48,6 +48,17 @@ const QUESTIONS = [
     id: 'anything_else',
     text: 'Anything else you want me to know that’s hard to say out loud?',
   },
+  {
+    id: 'message_for_him',
+    text: 'Anything you want to say back to me — write it here, however long or short.',
+    type: 'text',
+  },
+  {
+    id: 'forgive',
+    text: 'After everything I\u2019ve said — where\u2019s your heart with forgiving me, right now?',
+    type: 'choice',
+    options: ['I forgive you 💛', 'I want to, I\u2019m just not there yet 🌱', 'I need more time, and that\u2019s okay 🕊️'],
+  },
 ];
 
 function useReveal() {
@@ -247,19 +258,35 @@ export default function Page() {
             <form onSubmit={handleSubmit}>
               {QUESTIONS.map((q, i) => (
                 <Reveal as="div" key={q.id} delay={Math.min(i, 3) * 70}>
-                  <div className="question-block">
-                    <label htmlFor={q.id}>
+                  <div className={`question-block ${q.id === 'forgive' ? 'forgive-block' : ''}`}>
+                    <label htmlFor={q.type === 'choice' ? undefined : q.id} id={q.type === 'choice' ? q.id : undefined}>
                       <span className="q-num">
                         {String(i + 1).padStart(2, '0')} / {String(QUESTIONS.length).padStart(2, '0')}
                       </span>
                       {q.text}
                     </label>
-                    <textarea
-                      id={q.id}
-                      value={answers[q.id] || ''}
-                      onChange={(e) => handleAnswerChange(q.id, e.target.value)}
-                      placeholder="As much or as little as you want to write…"
-                    />
+                    {q.type === 'choice' ? (
+                      <div className="choice-row" role="group" aria-labelledby={q.id}>
+                        {q.options.map((option) => (
+                          <button
+                            key={option}
+                            type="button"
+                            className={`choice-btn ${answers[q.id] === option ? 'selected' : ''}`}
+                            onClick={() => handleAnswerChange(q.id, option)}
+                            aria-pressed={answers[q.id] === option}
+                          >
+                            {option}
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <textarea
+                        id={q.id}
+                        value={answers[q.id] || ''}
+                        onChange={(e) => handleAnswerChange(q.id, e.target.value)}
+                        placeholder="As much or as little as you want to write…"
+                      />
+                    )}
                   </div>
                 </Reveal>
               ))}

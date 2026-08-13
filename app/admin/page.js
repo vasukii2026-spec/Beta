@@ -52,7 +52,10 @@ export default function AdminPage() {
 
         {rows &&
           rows.map((row) => (
-            <div className="answer-card" key={row.id}>
+            <div
+              className={`answer-card ${row.question_id === 'forgive' ? 'forgive-card' : ''}`}
+              key={row.id}
+            >
               <div className="q">{row.question_text}</div>
               <p className="a">{row.answer}</p>
               <div className="t">{new Date(row.submitted_at).toLocaleString()}</div>

@@ -401,6 +401,18 @@ body {
   letter-spacing: 0.08em;
 }
 
+.question-block.forgive-block {
+  background: linear-gradient(160deg, rgba(199, 151, 63, 0.08), rgba(168, 80, 58, 0.05));
+  border: 1px solid rgba(199, 151, 63, 0.35);
+  border-radius: 10px;
+  padding: 30px 26px;
+}
+
+.question-block.forgive-block label {
+  font-style: italic;
+  font-size: 23px;
+}
+
 textarea {
   width: 100%;
   min-height: 96px;
@@ -428,6 +440,47 @@ textarea:focus-visible,
 button:focus-visible {
   outline: 2px solid var(--rust);
   outline-offset: 2px;
+}
+
+.choice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.choice-btn {
+  font-family: var(--mono);
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+  background: #fffdf6;
+  color: var(--text);
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  padding: 13px 22px;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease,
+    transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.choice-btn:hover {
+  border-color: var(--rust);
+  transform: translateY(-1px);
+}
+
+.choice-btn.selected {
+  background: linear-gradient(135deg, var(--rust) 0%, #c96a4f 100%);
+  border-color: var(--rust);
+  color: var(--parchment);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 22px rgba(168, 80, 58, 0.4), 0 0 0 4px rgba(168, 80, 58, 0.12);
+  animation: heartbeat 0.6s ease;
+}
+
+@keyframes heartbeat {
+  0% { transform: translateY(-2px) scale(1); }
+  30% { transform: translateY(-2px) scale(1.12); }
+  55% { transform: translateY(-2px) scale(0.98); }
+  100% { transform: translateY(-2px) scale(1.03); }
 }
 
 .submit-row {
@@ -582,6 +635,17 @@ footer.site-footer {
   font-family: var(--mono);
   font-size: 11px;
   color: var(--muted);
+}
+
+.answer-card.forgive-card {
+  border-color: var(--rust);
+  background: #fffaf3;
+}
+
+.answer-card.forgive-card .a {
+  font-family: var(--display);
+  font-size: 20px;
+  color: var(--rust);
 }
 
 @media (max-width: 600px) {
